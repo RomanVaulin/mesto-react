@@ -19,6 +19,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onOpenCar
                 dataCards.forEach(data => data.myid = dataUser._id)
                 setCards(dataCards)
             })
+            .catch((err) => {console.error(err)})
     },[])
 
     return (

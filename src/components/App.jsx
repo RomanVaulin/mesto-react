@@ -66,7 +66,7 @@ function App() {
         <input
             name="username"
             id="user-name-card"
-            required=""
+            required
             minLength={2}
             maxLength={40}
             type="text"
@@ -77,7 +77,7 @@ function App() {
         <input
             name="job"
             id="job-card"
-            required=""
+            required
             minLength={2}
             maxLength={200}
             type="text"
@@ -97,7 +97,7 @@ function App() {
         <input
             name="name"
             id="name-card"
-            required=""
+            required
             minLength={2}
             maxLength={30}
             type="text"
@@ -108,7 +108,7 @@ function App() {
         <input
             name="link"
             id="url-card"
-            required=""
+            required
             type="url"
             placeholder="Ссылка на картинку"
             className="popup__input popupAdd__field popupAdd__field_link_input"
@@ -125,7 +125,7 @@ function App() {
         <input
             name="avatar"
             id="url-avatar"
-            required=""
+            required
             type="url"
             placeholder="Ссылка на картинку"
             className="popup__input popupAvatar__field popupAvatar__field_link_input"
