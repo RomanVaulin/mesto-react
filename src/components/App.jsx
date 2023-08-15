@@ -29,28 +29,28 @@ function App() {
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    setEventListenerForEsc()
+    // setEventListenerForEsc()
   }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    setEventListenerForEsc()
+    // setEventListenerForEsc()
   }
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-    setEventListenerForEsc()
+    // setEventListenerForEsc()
   }
 
   function handleDeleteClick(cardId) {
     setDeleteCardId(cardId);
     setIsDeletePopupOpen(true);
-    setEventListenerForEsc()
+    // setEventListenerForEsc()
   }
 
-  function setEventListenerForEsc() {
-    document.addEventListener('keydown', handleClosePopupByEsc)
-  }
+  // function setEventListenerForEsc() {
+  //   document.addEventListener('keydown', handleClosePopupByEsc)
+  // }
 
   const setStatesforClosingPopups = useCallback (() => {
     setIsEditProfilePopupOpen(false);
@@ -60,22 +60,51 @@ function App() {
     setIsDeletePopupOpen(false);
   }, [])
 
-  const handleClosePopupByEsc = useCallback ((evt) => {
-    if (evt.key === 'Escape') {
-      setStatesforClosingPopups();
-      document.removeEventListener('keydown', handleClosePopupByEsc)
+  // const handleClosePopupByEsc = useCallback ((evt) => {
+  //   if (evt.key === 'Escape') {
+  //     setStatesforClosingPopups();
+  //     document.removeEventListener('keydown', handleClosePopupByEsc)
+  //   }
+  // }, [setStatesforClosingPopups])
+
+  useEffect(() => {
+    const handleCloseByEsc = (evt) => {
+      if (evt.key === "Escape") {
+        handleClosePopups()
+      }
+    };
+    document.addEventListener('keydown', handleCloseByEsc);
+    return () => document.removeEventListener('keydown', handleCloseByEsc);
+  }, [
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isEditAvatarPopupOpen,
+    isDeletePopupOpen,
+    isImagePopupOpen,
+    selectedCard
+  ])
+
+  const handleCloseByOverlay = useCallback((evt) => {
+    if (evt.target === evt.currentTarget) {
+      handleClosePopups()
     }
-  }, [setStatesforClosingPopups])
+  }, [
+    isEditProfilePopupOpen,
+    isAddPlacePopupOpen,
+    isEditAvatarPopupOpen,
+    isDeletePopupOpen,
+    isImagePopupOpen,
+    selectedCard
+  ])
 
   const handleClosePopups = useCallback(() => {
     setStatesforClosingPopups();
-    document.removeEventListener('keydown', handleClosePopupByEsc)
-  }, [setStatesforClosingPopups, handleClosePopupByEsc])
+  }, [setStatesforClosingPopups, handleCloseByOverlay])
 
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
-    setEventListenerForEsc()
+    // setEventListenerForEsc()
   }
   
   useEffect(() => {

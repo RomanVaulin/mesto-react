@@ -35,7 +35,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, isSubmit })
               type="text"
               placeholder="Название"
               className={`popup__input popupAdd__field popupAdd__field_place_input ${isInputValid.name === undefined || isInputValid.name ? '' : 'popup__error_visible'}`}
-              value={value.name ? value.name : ''}
+              value={value.name ?? ''}
               disabled={isSubmit}
               onChange={handleChange}
           />
@@ -47,7 +47,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, isSubmit })
               type="url"
               placeholder="Ссылка на картинку"
               className={`popup__input popupAdd__field popupAdd__field_place_input ${isInputValid.link === undefined || isInputValid.link ? '' : 'popup__error_visible'}`}
-              value={value.link ? value.link : ''}
+              value={value.link ?? ''}
               disabled={isSubmit}
               onChange={handleChange}
           />

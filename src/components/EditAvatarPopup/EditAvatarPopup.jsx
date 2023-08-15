@@ -34,7 +34,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isSub
                 type="url"
                 placeholder="Ссылка на картинку"
                 className={`popup__input popupAvatar__field popupAvatar__field_link_input ${isInputValid.avatar === undefined || isInputValid.avatar ? '' : 'popup__error_visible'}`}
-                value={value.avatar ? value.avatar : ''}
+                value={value.avatar ?? ''}
                 disabled={isSubmit}
                 onChange={handleChange}
             />

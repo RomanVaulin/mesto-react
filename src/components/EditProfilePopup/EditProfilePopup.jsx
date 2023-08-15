@@ -42,7 +42,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isSubm
               type="text"
               placeholder="Имя пользователя"
               className={`popup__input popupEdit__field popupEdit__field_name_input ${isInputValid.username === undefined || isInputValid.username ? '' : 'popup__error_visible'}`}
-              value={value.username ? value.username : ''}
+              value={value.username ?? ''}
               disabled={isSubmit}
               onChange={handleChange}
           />
@@ -56,7 +56,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser, isSubm
               type="text"
               placeholder="Род деятельности"
               className={`popup__input popupEdit__field popupEdit__field_description_input ${isInputValid.job === undefined || isInputValid.job ? '' : 'popup__error_visible'}`}
-              value={value.job ? value.job : ''}
+              value={value.job ?? ''}
               disabled={isSubmit}
               onChange={handleChange}
           />
