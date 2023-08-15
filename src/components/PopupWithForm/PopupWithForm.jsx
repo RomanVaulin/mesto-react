@@ -11,7 +11,6 @@ export default function PopupWithForm({ name, title, titleButton, children, isOp
                 <form
                 name={name}
                 className="popupEdit__form popup__form"
-                noValidate
                 onSubmit={onSubmit}
                 >
                     <h2 className="popupEdit__description">{title}</h2>
@@ -20,6 +19,7 @@ export default function PopupWithForm({ name, title, titleButton, children, isOp
                         className={`popupEdit__save-button popup__button ${name === 'delete' ? 'popup__button_changed' : ''} ${isSubmit ? 'popup__button_disabled' : ''} ${isValid ? '' : 'popup__button_disabled'}`}
                         aria-label="кнопка сохранить"
                         type="submit"
+                        disabled={!isValid}
                     >
                         {isSubmit ? 'Подождите...' : titleButton || 'Сохранить'}
                     </button>
