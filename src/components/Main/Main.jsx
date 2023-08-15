@@ -1,36 +1,22 @@
 import editLogo from '../../images/editbutton-vector.svg';
 import addLogo from '../../images/addbutton-vector.svg';
-import { useEffect, useState } from 'react';
-import api from '../../utils/api';
+import { useContext } from 'react';
 import Card from '../Card/Card.jsx';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import Loader from '../Loader/Loader.jsx';
 
-export default function Main({onEditProfile, onAddPlace, onEditAvatar, onOpenCard}) {
-    const [cards, setCards] = useState([]);
-    const [userName, setUserName] = useState('');
-    const [userDescription, setUserDescription] = useState('');
-    const [userAvatar, setUserAvatar] = useState('');
-
-    useEffect(() => {
-        Promise.all([api.getInfo(), api.getCards()])
-            .then(([dataUser, dataCards]) => {
-                setUserName(dataUser.name)
-                setUserDescription(dataUser.about)
-                setUserAvatar(dataUser.avatar)
-                dataCards.forEach(data => data.myid = dataUser._id)
-                setCards(dataCards)
-            })
-            .catch((err) => {console.error(err)})
-    },[])
+export default function Main({onEditProfile, onAddPlace, onEditAvatar, onOpenCard, onDelete, cards, loadingCards}) {
+    const currentUser = useContext(CurrentUserContext);
 
     return (
         <main className="content">
             <section className="profile">
                 <div className="profile__container">
                     <button type="button" className="profile__avatar-overlay" onClick={onEditAvatar} />
-                    <img src={userAvatar} alt="Аватар профиля" className="profile__avatar" />
+                    <img src={currentUser.avatar ? currentUser.avatar : '#'} alt="Аватар профиля" className="profile__avatar" />
                 </div>
                 <div className="profile__info">
-                    <h1 className="profile__name">{userName}</h1>
+                    <h1 className="profile__name">{currentUser.name ? currentUser.name : ''}</h1>
                     <button
                     type="button"
                     aria-label="кнопка редактирования"
@@ -43,7 +29,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onOpenCar
                         alt="кнопка редактирование"
                     />
                     </button>
-                    <p className="profile__description">{userDescription}</p>
+                    <p className="profile__description">{currentUser.about ? currentUser.about : ''}</p>
                 </div>
                 <button
                     type="button"
@@ -59,10 +45,10 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onOpenCar
                 </button>
             </section>
             <ul className="elements">
-                {cards.map(data => {
+                {loadingCards ? <Loader /> : cards.map(data => {
                     return (
                         <li className="element" key = {data._id}>
-                            <Card card={data} onOpenCard={onOpenCard} />
+                            <Card card={data} onOpenCard={onOpenCard} onDelete={onDelete}/>
                         </li>
                     ) 
                 })}

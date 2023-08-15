@@ -1,23 +1,23 @@
-export default function Card({ card, onOpenCard }) {
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import LikeButton from "../LikeButton/LikeButton.jsx";
+
+export default function Card({ card, onOpenCard, onDelete }) {
+    const currentUser = useContext(CurrentUserContext);
+
     return (
         <>
             <img src={card.link} alt={card.name} className="element__image" onClick={() => onOpenCard({link: card.link, name: card.name})} />
             <div className="element__group">
                 <h2 className="element__description">{card.name}</h2>
-                <div className="element__container">
-                <button
-                    type="button"
-                    aria-label="копка нравится"
-                    className="element__like-button"
-                />
-                <span className="element__likes_number" />
-                </div>
+                <LikeButton likes={card.likes} myId={currentUser._id} cardId={card._id}/>
             </div>
-            <button
+            {currentUser._id === card.owner._id && <button
                 className="element__trash"
                 type="button"
-                aria-label="кнопка удления"
-            />
+                aria-label="кнопка удаления"
+                onClick={() => onDelete(card._id)}
+            />}
         </>
     )
 }
